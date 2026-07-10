@@ -1,0 +1,570 @@
+# 🚀 Next.js Notes (Codevolution Playlist)
+
+> Personal learning notes while following the **Next.js Tutorial** by **Codevolution**.
+
+📺 **Playlist:** https://youtube.com/playlist?list=PLC3y8-rFHvwhIEc4I4YsRz5C7GOBnxSJY&si=afQSFUn1vJNbN12q
+
+---
+
+# Module 1 — Introduction & Project Setup
+
+## 🎯 Learning Objectives
+
+In this module, you'll learn:
+
+* What Next.js is
+* Why Next.js is used instead of plain React
+* How to create a Next.js project
+* Understanding the generated project structure
+* Running the development server
+
+---
+
+# What is Next.js?
+
+Next.js is a **React Framework** developed by **Vercel**.
+
+React only helps us build the User Interface.
+
+If we build an application using React alone, we need additional libraries for:
+
+* Routing
+* SEO
+* Server-side Rendering
+* Image Optimization
+* API Handling
+* Code Splitting
+* Performance Optimization
+
+Next.js provides all of these features out of the box.
+
+### React vs Next.js
+
+| React                            | Next.js                              |
+| -------------------------------- | ------------------------------------ |
+| UI Library                       | React Framework                      |
+| Client-side rendering by default | Supports Server-side Rendering (SSR) |
+| Need React Router                | File-based Routing                   |
+| Need separate backend            | API Routes built-in                  |
+| Manual optimization              | Automatic optimization               |
+| SEO is harder                    | Excellent SEO support                |
+
+Think of it like this:
+
+> **React is the engine.**
+>
+> **Next.js is the complete car.**
+
+---
+
+# Creating a Next.js Project
+
+```bash
+npx create-next-app@latest my-app
+```
+
+During installation you'll see several questions.
+
+Recommended answers:
+
+| Question           | Recommended |
+| ------------------ | ----------- |
+| TypeScript         | ✅ Yes       |
+| ESLint             | ✅ Yes       |
+| Tailwind CSS       | ✅ Yes       |
+| src Directory      | Optional    |
+| App Router         | ✅ Yes       |
+| Import Alias (@/*) | ✅ Yes       |
+
+---
+
+# Running the Project
+
+Move into the project folder.
+
+```bash
+cd my-app
+```
+
+Start the development server.
+
+```bash
+npm run dev
+```
+
+Open:
+
+```
+http://localhost:3000
+```
+
+Every change you save automatically updates the browser using **Hot Reload**.
+
+---
+
+# Project Structure
+
+```
+my-app/
+│
+├── app/
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+│
+├── public/
+│   ├── next.svg
+│   ├── vercel.svg
+│   └── ...
+│
+├── next.config.ts
+├── next-env.d.ts
+├── tsconfig.json
+├── eslint.config.mjs
+├── postcss.config.mjs
+├── package.json
+├── package-lock.json
+└── README.md
+```
+
+---
+
+# Understanding Every Folder & File
+
+## 📁 app/
+
+The **app** folder is the heart of a Next.js application.
+
+Every page, route, layout, loading screen, error page and API route lives inside this folder.
+
+The App Router uses **special filenames**.
+
+Example:
+
+```
+app/
+    page.tsx
+```
+
+creates
+
+```
+localhost:3000/
+```
+
+```
+app/
+    about/
+        page.tsx
+```
+
+creates
+
+```
+localhost:3000/about
+```
+
+---
+
+## 📄 page.tsx
+
+Represents a route.
+
+Every route must contain a **page.tsx** file.
+
+Example
+
+```tsx
+export default function HomePage() {
+    return <h1>Hello Next.js</h1>
+}
+```
+
+This file becomes the homepage.
+
+```
+localhost:3000/
+```
+
+Without **page.tsx**, no page is created.
+
+---
+
+## 📄 layout.tsx
+
+Defines the layout shared across pages.
+
+Example:
+
+* Navbar
+* Sidebar
+* Footer
+* Theme Provider
+* Context Provider
+
+Every page is rendered inside:
+
+```tsx
+{children}
+```
+
+You only create these shared components once.
+
+---
+
+## 📄 globals.css
+
+Global stylesheet.
+
+CSS written here affects the entire application.
+
+Example:
+
+```css
+body{
+    margin:0;
+    padding:0;
+}
+```
+
+---
+
+## 📄 favicon.ico
+
+The browser tab icon.
+
+Without it:
+
+🌐
+
+With it:
+
+⚡ My Website
+
+---
+
+# 📁 public/
+
+Contains static assets.
+
+Examples:
+
+* Images
+* PDFs
+* Fonts
+* Videos
+* Logos
+
+Example:
+
+```
+public/
+
+logo.png
+```
+
+Use it like:
+
+```tsx
+<img src="/logo.png" />
+```
+
+Notice we don't write
+
+```
+public/logo.png
+```
+
+Only
+
+```
+/logo.png
+```
+
+---
+
+## SVG Files
+
+```
+next.svg
+vercel.svg
+window.svg
+globe.svg
+file.svg
+```
+
+These are sample assets provided by the template.
+
+They can safely be deleted if unused.
+
+---
+
+# package.json
+
+One of the most important files.
+
+Contains:
+
+* Project name
+* Version
+* Scripts
+* Dependencies
+* Dev Dependencies
+
+Example
+
+```json
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build"
+  }
+}
+```
+
+Whenever you install a package
+
+```bash
+npm install axios
+```
+
+it gets added here.
+
+---
+
+# package-lock.json
+
+Automatically generated by npm.
+
+Stores the exact versions of every installed package.
+
+Purpose:
+
+Ensures everyone installing the project gets the exact same dependency versions.
+
+Never edit this file manually.
+
+---
+
+# tsconfig.json
+
+TypeScript configuration.
+
+Controls:
+
+* Strict mode
+* Compiler options
+* Path aliases
+* Type checking
+
+Usually doesn't need editing for beginners.
+
+---
+
+# next.config.ts
+
+Next.js configuration file.
+
+Used for:
+
+* Image configuration
+* Redirects
+* Headers
+* Environment settings
+* Experimental features
+
+Most projects require only occasional changes here.
+
+---
+
+# next-env.d.ts
+
+Automatically generated.
+
+Provides TypeScript definitions for Next.js.
+
+Do **not** edit this file.
+
+---
+
+# eslint.config.mjs
+
+Configuration for ESLint.
+
+Helps detect:
+
+* Bugs
+* Unused variables
+* Incorrect code patterns
+* Best practices
+
+Improves code quality.
+
+---
+
+# postcss.config.mjs
+
+Configuration for PostCSS.
+
+Processes CSS before it reaches the browser.
+
+When using Tailwind CSS, this file enables Tailwind's PostCSS plugin.
+
+---
+
+# README.md
+
+Project documentation.
+
+Usually contains:
+
+* Installation steps
+* Project overview
+* Features
+* Commands
+* Deployment guide
+
+This is the first file people see when they visit your GitHub repository.
+
+---
+
+# Special File Naming Convention
+
+Inside the **app** folder, filenames are important.
+
+These names have special meanings:
+
+```
+page.tsx
+layout.tsx
+loading.tsx
+error.tsx
+not-found.tsx
+route.ts
+template.tsx
+default.tsx
+```
+
+Next.js automatically recognizes these files and gives them special behavior.
+
+If you create:
+
+```
+hello.tsx
+```
+
+it is treated as a normal React component.
+
+If you create:
+
+```
+page.tsx
+```
+
+it becomes a route automatically.
+
+---
+
+# Important Concept
+
+The App Router works using **File-Based Routing**.
+
+Instead of configuring routes manually, the folder structure defines the application's URLs.
+
+Example:
+
+```
+app/
+
+page.tsx
+```
+
+↓
+
+```
+/
+```
+
+```
+app/
+
+about/
+
+page.tsx
+```
+
+↓
+
+```
+/about
+```
+
+```
+app/
+
+products/
+
+page.tsx
+```
+
+↓
+
+```
+/products
+```
+
+```
+app/
+
+products/
+
+electronics/
+
+page.tsx
+```
+
+↓
+
+```
+/products/electronics
+```
+
+---
+
+# Summary
+
+By the end of this module, you should understand:
+
+* ✅ What Next.js is
+* ✅ Why it's built on React
+* ✅ How to create a Next.js project
+* ✅ How to run the development server
+* ✅ The purpose of every generated file
+* ✅ File-Based Routing
+* ✅ The App Router
+* ✅ Why `page.tsx` and `layout.tsx` are special
+
+---
+
+# 📚 Notes
+
+## Video 1 — Introduction
+
+*
+
+## Video 2 — Hello World
+
+*
+
+## Video 3 — Project Structure
+
+*
+
+## Video 4 — create-next-app
+
+*
+
+## Video 5 — Development Server
+
+*

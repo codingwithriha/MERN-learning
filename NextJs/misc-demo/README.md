@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# misc-demo — Notes
 
-## Getting Started
+## What this project teaches
+Styling options available in Next.js beyond plain global CSS: **CSS Modules** and
+**Sass/SCSS** (including Sass modules and shared Sass variables).
 
-First, run the development server:
+## Key concepts
+- [x] Global CSS (`globals.css`) — imported once in the root layout, applies everywhere
+- [x] CSS Modules (`*.module.css`) — locally-scoped class names, imported as a JS object
+- [x] Sass support — `sass` added as a dependency, `.scss` files work out of the box
+- [x] Sass Modules (`*.module.scss`) — scoped Sass, same idea as CSS Modules but with
+  Sass features (variables, `@use`)
+- [x] Shared Sass variables file (`colors.scss`) imported into multiple modules with
+  `@use "../colors" as colors`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## File-by-file breakdown
+- `src/app/colors.scss` — defines `$primary` / `$secondary` Sass variables shared across
+  the app.
+- `src/app/about/about.module.css` vs `about.module.scss` — same page has **both** a
+  CSS Module and a Sass Module side-by-side to compare syntax; the page (`page.tsx`)
+  actually imports the `.scss` one (`styles.highlightscss`).
+- `src/app/contact/` — same pattern as `about/`, using `$secondary` instead of
+  `$primary`, proving the shared `colors.scss` variables give consistent theming across
+  pages.
+- `src/app/globals.css` — has an extra rule (`h2 { color: orange; }`) demonstrating that
+  global styles still apply *underneath* module styles (specificity/cascade order
+  matters — module class wins here because it's more specific, not because it's a
+  module).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Gotchas / things to remember
+- CSS Module / Sass Module class names must be accessed via the imported `styles`
+  object (`styles.highlightscss`), **not** as a plain string — this is what gives the
+  scoping.
+- `@use` (not `@import`) is the modern Sass syntax for pulling in shared variable files.
+- You need the `sass` package in `devDependencies` for `.scss` to work at all (check
+  `package.json`).

@@ -545,26 +545,3 @@ By the end of this module, you should understand:
 * ✅ The App Router
 * ✅ Why `page.tsx` and `layout.tsx` are special
 
----
-
-# 📚 Notes
-
-## Video 1 — Introduction
-
-*
-
-## Video 2 — Hello World
-
-*
-
-## Video 3 — Project Structure
-
-*
-
-## Video 4 — create-next-app
-
-*
-
-## Video 5 — Development Server
-
-*

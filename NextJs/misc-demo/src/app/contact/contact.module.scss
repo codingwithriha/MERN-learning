@@ -1,0 +1,5 @@
+@use "../colors" as colors;
+
+.highlightscss {
+  color: colors.$secondary;
+}
